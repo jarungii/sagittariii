@@ -3,9 +3,9 @@ import korlibs.korge.view.*
 import korlibs.math.geom.Point
 import kotlin.math.*
 
-class GameLogic(val container: Container, val assets: Assets) {
+class GameLogic(val container: Container) {
     val stars = mutableListOf<Star>()
-    val arrow = Arrow(container, assets.arrow)
+    val arrow = Arrow(0,0)
     var score = 0
 
     init {
@@ -20,15 +20,15 @@ class GameLogic(val container: Container, val assets: Assets) {
 //        return Star(container, starPath)
 //    }
 
-    fun update() {
-        arrow.update()
-        stars.forEach { star ->
-            if (star.isHit(arrow)) {
-                star.remove()
-                score++
-            }
-        }
-    }
+//    fun update() {
+//        arrow.update()
+//        stars.forEach { star ->
+//            if (star.isHit(arrow)) {
+//                star.remove()
+//                score++
+//            }
+//        }
+//    }
 
     fun shoot(archer: Image, releaseX: Double, releaseY: Double) {
         val archerCenterX = archer.x + archer.width / 2

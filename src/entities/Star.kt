@@ -7,10 +7,17 @@ import korlibs.korge.view.*
 import korlibs.math.geom.Rectangle
 import kotlin.math.*
 
-class Star(val speed: Double = 0.5, color: Int) {
-    private val image: Image
-    private val bonus: Int
+
+class Star(color: Int, x: Double, y: Double) {
+    private var xCoor: Double
+    private var yCoor: Double
+    val image: Image
+    val bonus: Int
+    var angle = Math.random() * 360
+    var hit = false
     init{
+        xCoor = x
+        yCoor = y
         image = when (color) {
             1 -> Image(AssetLoader.star_yellow)
             2 -> Image(AssetLoader.star_purple)
@@ -25,30 +32,23 @@ class Star(val speed: Double = 0.5, color: Int) {
             30
         }
         }
-        this
     }
 
-
-    private var xCoor = 0.0
-    private var yCoor =  (20..100).random().toDouble()
-    var angle = Math.random() * 360
-    var hit = false
-
-    fun update() {
-        if (!hit) {
-            val rad = Math.toRadians(angle)
-            xCoor += Math.cos(rad) * speed
-            yCoor += Math.sin(rad) * speed
-        }
-    }
-
-    fun isHit(arrow: Arrow): Boolean {
-        val starRect = Rectangle(xCoor, yCoor, image.width, image.height)
-
-        return starRect.isZero
-    }
-
-    fun remove() {
-        hit = true
-    }
+//    fun update() {
+//        if (!hit) {
+//            val rad = Math.toRadians(angle)
+//            xCoor += Math.cos(rad)
+//            yCoor += Math.sin(rad)
+//        }
+//    }
+//
+//    fun isHit(arrow: Arrow): Boolean {
+//        val starRect = Rectangle(xCoor, yCoor, image.width, image.height)
+//
+//        return starRect.isZero
+//    }
+//
+//    fun remove() {
+//        hit = true
+//    }
 }

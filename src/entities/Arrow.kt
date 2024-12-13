@@ -5,24 +5,22 @@ import korlibs.korge.view.*
 import korlibs.math.geom.*
 import kotlin.math.*
 
-class Arrow(container: Container, arrowPath: String) {
+class Arrow(x: Int, y: Int) {
     val image = AssetLoader.arrow
-    var position = Point(0.0, 0.0)
     var velocity = Point(0.0, 0.0)
     var gravity = 0.5
     var isFlying = false
-
+    var xCoor = x
+    var yCoor = y
     init {
         //image.visible = false // Initially hidden
     }
 
     fun shoot(startX: Double, startY: Double, endX: Double, endY: Double, initialVelocity: Double) {
-        position = Point(startX, startY)
-        image.x(position.x.toInt())
-        image.y(position.y.toInt())
+        image.x(xCoor)
+        image.y(yCoor)
         image
         isFlying = true
-
         // Calculate velocity vector
         val dx = endX - startX
         val dy = endY - startY
