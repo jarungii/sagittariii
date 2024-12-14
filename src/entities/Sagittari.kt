@@ -1,10 +1,16 @@
 package entities
-import AssetLoader
+
+import korlibs.image.bitmap.*
 import korlibs.korge.view.*
-import korlibs.math.geom.*
-import kotlin.math.*
-class Sagittari (container: Container){
-    val image = AssetLoader.arrow
-    var position = Point(0.0, 0.0)
-    var velocity = Point(0.0, 0.0)
+
+fun getSagittari(atlas: Bitmap): Sprite{
+    val sagittariAnimation = SpriteAnimation(
+        spriteMap = atlas,
+        spriteWidth = 1202,
+        spriteHeight = 1702,
+        columns = 1,
+        rows = 6
+    )
+    val sagittariSprite = Sprite(sagittariAnimation).scale(0.4, 0.4)
+    return (sagittariSprite)
 }

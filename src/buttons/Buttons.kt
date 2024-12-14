@@ -18,3 +18,11 @@ val moveButton = UIButton(text ="MOVE").also{
         90f, 90f)
     it.textSize = 100.0
     it.rotation = 90.degrees}
+
+val shootButton = UIButton(text = "SHOOT").also{
+    it.width = 300.0
+    it.height = 170.0
+    it.background.radius = RectCorners(0f, 0f,
+        90f, 90f)
+    it.textSize = 100.0
+}
