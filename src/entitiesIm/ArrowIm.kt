@@ -1,23 +1,36 @@
 package entitiesIm
 
-import korlibs.io.file.std.*
 import korlibs.image.bitmap.*
+import korlibs.korge.input.*
 import korlibs.korge.view.*
-import korlibs.time.*
-import korlibs.event.*
-import korlibs.korge.view.Stage
 import korlibs.math.geom.*
+import kotlin.math.*
 
-class ArrowIm(startX: Double, startY: Double, image: Image)  {
-    val arrowIm = image
+
+class ArrowIm(startX: Double, startY: Double, bitmap: Bitmap)  {
+    val arrowIm = Image(bitmap)
     init{
         arrowIm.scale(0.3,0.3)
         arrowIm.xy(startX,startY)
     }
     fun chooseK(){
-        arrowIm.addUpdater { time ->
-            val scale = time.milliseconds
-            arrowIm.rotation(scale.degrees)
-        }
+        val dragStartX = arrowIm.x
+        val dragStartY = arrowIm.y
+        arrowIm
+            .onMouseDrag {
+                //Rotation Logic
+                val mousePosY = it.cy
+                val mousePosX = it.cx
+                val angle = atan2(mousePosY - dragStartY, mousePosX - dragStartX)
+                var arrowRotation = angle
+                arrowIm.rotation(arrowRotation.degrees)
+
+                if(arrowRotation > 180){
+                    arrowRotation -= 360
+                }
+                if(arrowRotation < -180){
+                    arrowRotation += 360
+                }
+            }
     }
 }
