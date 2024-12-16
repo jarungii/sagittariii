@@ -3,6 +3,7 @@
 import buttons.*
 import entities.*
 import entitiesIm.*
+import korlibs.audio.sound.*
 import korlibs.image.color.*
 import korlibs.image.format.*
 import korlibs.io.file.std.*
@@ -14,7 +15,11 @@ import korlibs.math.interpolation.*
 import korlibs.time.*
 
 
-suspend fun main() = Korge(virtualWidth = 1080, virtualHeight = 2340, bgcolor = Colors["#2b2b2b"]){
+suspend fun main() = Korge(
+    virtualWidth = 1080, virtualHeight = 2340, bgcolor = Colors["#2b2b2b"],
+    title = "sagittariii", icon = "bluestar.png"){
+    val music = resourcesVfs["audio.mp3"].readMusic()
+    var channel = music.play()
     val bulletSheet = resourcesVfs["bullet.png"].readBitmap()
     val sagittariSheet = resourcesVfs["sagittari.png"].readBitmap()
     val bg = image(resourcesVfs["bg.png"].readBitmap()).addTo(stage)
@@ -82,18 +87,20 @@ suspend fun main() = Korge(virtualWidth = 1080, virtualHeight = 2340, bgcolor = 
             bullet.playAnimationLooped(spriteDisplayTime = 50.milliseconds)
             bullet
                 .scale(0.07, 0.07).xy(curX,sagittari.y - 350)
-                .addTo(this)
+                .alpha(1).addTo(this)
             this.addUpdater {
+                bullet.alpha(1)
                 bullet.y -= 5
-            }
-            if (bullet.y<0) {
-                bullet.y=sagittari.y - 350
-                bullet.removeFromParent()
+                if (bullet.y<0) {
+                    bullet.y=sagittari.y - 350
+                }
             }
         }
         if (!shootingMode){
-            bullet.y = sagittari.y - 350
-            bullet.removeFromParent()
+            this.addUpdater{
+                bullet.y = sagittari.y - 350
+                bullet.alpha(0)
+            }
         }
     }
 }
